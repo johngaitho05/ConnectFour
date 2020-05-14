@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : John YK
 */
 
-#board button{
+#board button, #legend button{
     background-color: grey;
     border-radius: 50%;
     width: 70px;

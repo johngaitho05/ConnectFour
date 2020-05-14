@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 alert('Welcome to connect-four game. P1 will take blue and P2 will take red');
 p1 = 'P1';
 p2 = 'P2';
@@ -41,21 +37,21 @@ function play(j){
     if(chip){
         if (turn === p1){
             chip.css('background-color', p1Color);
-            $('#turn').text(p2);
             if(checkWin()){
                 announceWinner(turn);
             }
+            checkTie();
             turn = p2;
             
         }else{
             chip.css("background-color",p2Color);
-            $('#turn').text(p2);
             if(checkWin()){
                 announceWinner(turn);
             }
+            checkTie();
             turn = p1;
-            $('#turn').text(p1);
         }
+        $('#turn').text(turn);
             
     } 
     
@@ -121,6 +117,38 @@ function checkWin(){
             }
         }
     }
+    for(i=n;i>2;i--){
+        row = chips[i]
+        if(i=== n){
+            start = row.length-4;
+        }else{
+            start = 0;
+        }
+        for(j=start;j>-1;j--){
+            count = 0;
+            x = i;
+            y = j;
+            color = null;
+            while(x>-1 && y<row.length){
+                console.log(x,y)
+                newColor = getColor(x,y);
+                if(newColor === color && color !== 'rgb(128, 128, 128)'){
+                    count += 1;
+                    if(count === 4)
+                        return true
+                }else{
+                    count = 1;
+                }    
+                color = newColor;
+                x-=1;
+                y+=1;
+            }
+        }
+    }
+    return false
+}
+
+function checkTie(){
     empty = 0;
     for(i=0;i<chips.length;i++){
         row = chips[i];
@@ -135,7 +163,6 @@ function checkWin(){
         alert('Game over')
         restartGame();
     }
-    return false
 }
  
  
