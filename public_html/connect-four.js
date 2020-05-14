@@ -88,11 +88,37 @@ function checkWin(){
     for (j=0;j<chips[0].length;j++){
         for(i=n;i>=3;i--){
             color = getColor(i,j);
-            console.log(i,j)
             if(color === getColor(i-1,j) && color=== getColor(i-2,j) && 
                     color===getColor(i-3,j) && color  != 'rgb(128, 128, 128)'){
                 return true 
             } 
+        }
+    }
+    for(i=n;i>2;i--){
+        row = chips[i]
+        if(i=== n){
+            start = 3;
+        }else{
+            start = row.length-1;
+        }
+        for(j=start;j<row.length;j++){
+            count = 0;
+            x = i;
+            y = j;
+            color = null;
+            while(x>-1 && y>-1){
+                newColor = getColor(x,y);
+                if(newColor === color && color !== 'rgb(128, 128, 128)'){
+                    count += 1;
+                    if(count === 4)
+                        return true
+                }else{
+                    count = 1;
+                }    
+                color = newColor;
+                x-=1;
+                y-=1;
+            }
         }
     }
     empty = 0;
